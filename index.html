@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I hate Greedier</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="collectibles.css">
+</head>
+<body>
+    <header>
+        <p>I hate Greedier</p>
+    </header>
+
+
+    <img id="add_btn_1" class="bofsym bofsym_1" data-id="1"/>
+    <img id="add_btn_2" class="bofsym bofsym_2" data-id="2"/>
+    <img id="add_btn_3" class="bofsym bofsym_3" data-id="3"/>
+    <img id="add_btn_4" class="bofsym bofsym_4" data-id="4"/>
+    <img id="add_btn_5" class="bofsym bofsym_5" data-id="5"/>
+    <img id="add_btn_6" class="bofsym bofsym_6" data-id="6"/>
+    <img id="add_btn_7" class="bofsym bofsym_7" data-id="7"/>
+    <img id="add_btn_8" class="bofsym bofsym_8" data-id="8"/><br>
+    <img id="add_btn_9" class="bofsym bofsym_9" data-id="9"/>
+    <img id="add_btn_10" class="bofsym bofsym_10" data-id="10"/>
+    <img id="add_btn_11" class="bofsym bofsym_11" data-id="11"/>
+    <img id="add_btn_12" class="bofsym bofsym_12" data-id="12"/>
+    <img id="add_btn_13" class="bofsym bofsym_13" data-id="13"/>
+    <img id="add_btn_14" class="bofsym bofsym_14" data-id="14"/>
+    <img id="add_btn_15" class="bofsym bofsym_15" data-id="15"/>
+    <img id="add_btn_16" class="bofsym bofsym_16" data-id="16"/><br>
+    <img id="add_btn_17" class="bofsym bofsym_17" data-id="17"/>
+    <img id="add_btn_18" class="bofsym bofsym_18" data-id="18"/>
+    <img id="add_btn_19" class="bofsym bofsym_19" data-id="19"/>
+    <img id="add_btn_20" class="bofsym bofsym_20" data-id="20"/>
+    <img id="add_btn_21" class="bofsym bofsym_21" data-id="21"/>
+    <img id="add_btn_22" class="bofsym bofsym_22" data-id="22"/>
+    <img id="add_btn_23" class="bofsym bofsym_23" data-id="23"/>
+    <img id="add_btn_24" class="bofsym bofsym_24" data-id="24"/><br>
+    <img id="add_btn_25" class="bofsym bofsym_25" data-id="25"/>
+    <img id="add_btn_26" class="bofsym bofsym_26" data-id="26"/>
+    <img id="add_btn_27" class="bofsym bofsym_27" data-id="27"/>
+    <img id="add_btn_28" class="bofsym bofsym_28" data-id="28"/>
+    <img id="add_btn_29" class="bofsym bofsym_29" data-id="29"/>
+
+    <form onsubmit='return false'>
+        <input type="text" id="seed">
+        <button id="btn">send</button>
+    </form>
+
+    <input type="text" placeholder="Search" id="search">
+
+    <main>
+    </main>
+
+<script type="module" src="main.js"></script>
+<script type="module">
+import { str2seed } from './utils.js';
+import { main } from './main.js';
+
+let pickUps = []
+
+document.getElementById("btn").addEventListener ("click", send, false);
+
+function send() {
+    let strSeed = document.getElementById("seed").value;
+    let realSeed = str2seed(strSeed);
+    if (realSeed != 0) {
+        main(realSeed, pickUps);
+    }  
+}
+
+let search = document.getElementById("search");
+search.addEventListener("input", tmp, false)
+
+function tmp() {
+    let val = search.value;
+
+    const main = document.querySelector('main');
+    main.childNodes.forEach(e => {
+        if (e.dataset?.id == val || e.dataset?.name.includes(val.toUpperCase())) {
+            e.style.display = 'initial'
+        } else {
+            if (e.style) {
+                e.style.display = 'none'
+            }
+        }
+    })
+
+}
+
+document.querySelectorAll('.bofsym').forEach( e => {
+    e.addEventListener('click', () => {
+        const elemId = +e.dataset.id;
+        if (e.dataset?.selected == 'true') {
+            e.dataset.selected = 'false';
+            pickUps = pickUps.filter(id => id != elemId)
+        } else {
+            e.dataset.selected = 'true';
+            pickUps.push(elemId)
+        }
+        console.log(pickUps);
+    })
+})
+
+</script>
+</body>
+</html>
